@@ -1,2 +1,4 @@
-# Flutter-App-dev
-Starting app development with Flutter
+# My Flutter Journey
+
+These are all the projects that I developed during my journey through Flutter App dev. 
+
