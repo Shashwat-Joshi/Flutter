@@ -1,3 +1,3 @@
-# Stateful Widget
+# Stateless Widget
 
-A stateful widget is basically something that is functional, For Eg - There is a button which on being pressed does somet
+A stateless widget is basically something that is not functional, For Eg - There is just a page which does nothing.
