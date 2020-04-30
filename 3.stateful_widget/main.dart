@@ -60,8 +60,7 @@ class MyButtonState extends State<MyButton> {
                   child: Text("Call Numbers"),
                   color: Colors.teal[300],
                   splashColor: Colors.teal[400],
-                  autofocus: true,
-                  elevation: 40.0,
+                  elevation: 10.0,
                 )
               ],
             ),
