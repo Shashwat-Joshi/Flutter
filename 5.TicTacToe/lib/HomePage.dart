@@ -7,23 +7,20 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  // TODO: link up the images
+  AssetImage edit = AssetImage("images/edit.png");
   AssetImage cross = AssetImage("images/cross.png");
   AssetImage circle = AssetImage("images/circle.png");
-  AssetImage edit = AssetImage("images/edit.png");
 
-  bool isCross = true;
   String message;
   List<String> gameState;
+  bool isCross = true;
   int count = 0;
-
-  // TODO: Initialize the state of the box as empty
 
   @override
   void initState() {
     super.initState();
     setState(() {
-      this.gameState = [
+      gameState = [
         "empty",
         "empty",
         "empty",
@@ -34,34 +31,36 @@ class _HomePageState extends State<HomePage> {
         "empty",
         "empty",
       ];
-      this.message = "";
+      message = "";
     });
   }
 
-  // TODO: playGame Method
-
-  playGame(int index) {
+  playGame(index) {
     if (this.gameState[index] == "empty" && this.message == "") {
       setState(() {
         if (this.isCross) {
-          this.gameState[index] = "Cross";
+          gameState[index] = "Cross";
         } else {
-          this.gameState[index] = "Circle";
+          gameState[index] = "Circle";
         }
         count++;
-        if (count > 4 && this.message == "") {
+        if (count > 4) {
           checkWin();
         }
         this.isCross = !this.isCross;
+        // if you want to reset automatically if a player Wins
+        if (this.message.isNotEmpty) {
+          Timer(Duration(seconds: 2), () {
+            resetGame();
+          });
+        }
       });
     }
   }
 
-  // TODO: ResetGame Method
-
   resetGame() {
     setState(() {
-      this.gameState = [
+      gameState = [
         "empty",
         "empty",
         "empty",
@@ -72,87 +71,89 @@ class _HomePageState extends State<HomePage> {
         "empty",
         "empty",
       ];
-      this.message = "";
+      message = "";
     });
   }
 
-  // TODO: Get Image Method
   AssetImage getImage(String value) {
     switch (value) {
-      case ('empty'):
+      case ("empty"):
         return edit;
         break;
-      case ('Cross'):
+      case ("Cross"):
         return cross;
         break;
-      case ('Circle'):
+      case ("Circle"):
         return circle;
         break;
     }
   }
 
-  // TODO: check for winning logic
   checkWin() {
-    if (gameState[0] != 'empty' &&
+    if (gameState[0] != "empty" &&
         gameState[0] == gameState[1] &&
         gameState[1] == gameState[2]) {
       setState(() {
-        this.message = "${this.gameState[0]} Wins";
+        this.message = "${gameState[0]} Wins";
       });
-    } else if (gameState[3] != 'empty' &&
+    } else if (gameState[3] != "empty" &&
         gameState[3] == gameState[4] &&
         gameState[4] == gameState[5]) {
       setState(() {
-        this.message = "${this.gameState[3]} Wins";
+        this.message = "${gameState[3]} Wins";
       });
-    } else if (gameState[6] != 'empty' &&
+    } else if (gameState[6] != "empty" &&
         gameState[6] == gameState[7] &&
         gameState[7] == gameState[8]) {
       setState(() {
-        this.message = "${this.gameState[6]} Wins";
+        this.message = "${gameState[6]} Wins";
       });
-    } else if (gameState[0] != 'empty' &&
+    } else if (gameState[0] != "empty" &&
         gameState[0] == gameState[3] &&
         gameState[3] == gameState[6]) {
       setState(() {
-        this.message = "${this.gameState[0]} Wins";
+        this.message = "${gameState[0]} Wins";
       });
-    } else if (gameState[1] != 'empty' &&
+    } else if (gameState[1] != "empty" &&
         gameState[1] == gameState[4] &&
         gameState[4] == gameState[7]) {
       setState(() {
-        this.message = "${this.gameState[1]} Wins";
+        this.message = "${gameState[1]} Wins";
       });
-    } else if (gameState[2] != 'empty' &&
+    } else if (gameState[2] != "empty" &&
         gameState[2] == gameState[5] &&
         gameState[5] == gameState[8]) {
       setState(() {
-        this.message = "${this.gameState[2]} Wins";
+        this.message = "${gameState[2]} Wins";
       });
-    } else if (gameState[0] != 'empty' &&
+    } else if (gameState[0] != "empty" &&
         gameState[0] == gameState[4] &&
         gameState[4] == gameState[8]) {
       setState(() {
-        this.message = "${this.gameState[0]} Wins";
+        this.message = "${gameState[0]} Wins";
       });
-    } else if (gameState[2] != 'empty' &&
+    } else if (gameState[2] != "empty" &&
         gameState[2] == gameState[4] &&
         gameState[4] == gameState[6]) {
       setState(() {
-        this.message = "${this.gameState[2]} Wins";
+        this.message = "${gameState[2]} Wins";
       });
-    } else if (!gameState.contains('empty')) {
+    } else if (!gameState.contains("empty")) {
       setState(() {
-        this.message = "Game Draw";
+        this.message = "It's a Draw !!";
       });
     }
   }
 
-  reset() {
-    if (this.message != "") {
-      Timer(Duration(seconds: 2), () {
-        resetGame();
-      });
+  Color val() {
+    if (this.message == "Cross Wins") {
+      return Colors.red;
+    } else if (this.message == "Circle Wins") {
+      return Colors.green;
+    } else if (this.message == "It's a Draw !!") {
+      return Colors.blue;
+    } else {
+      return Colors.transparent;
     }
   }
 
@@ -160,21 +161,24 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Tic Tac Toe"),
+        title: Text(
+          "Tic Tac Toe",
+          style: TextStyle(fontSize: 25.0),
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.teal[700],
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(40.0),
         ),
-        centerTitle: true,
       ),
+      extendBodyBehindAppBar: true,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          Padding(padding: EdgeInsets.all(20.0)),
           Expanded(
             child: GridView.builder(
-              padding: EdgeInsets.all(20.0),
-              physics: new NeverScrollableScrollPhysics(),
+              padding: EdgeInsets.fromLTRB(20.0, 150.0, 20.0, 20.0),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3,
                 childAspectRatio: 1.0,
@@ -184,57 +188,55 @@ class _HomePageState extends State<HomePage> {
               itemCount: this.gameState.length,
               itemBuilder: (context, i) => Container(
                 decoration: BoxDecoration(
-                  border: Border.all(
-                    width: 1.0,
-                  ),
+                  border: Border.all(width: 1.5),
                 ),
-                height: 100.0,
-                width: 100.0,
                 child: MaterialButton(
-                  elevation: 10.0,
-                  child: Image(
-                    image: this.getImage(gameState[i]),
-                  ),
                   onPressed: () {
                     this.playGame(i);
                   },
+                  child: Image(
+                    image: getImage(this.gameState[i]),
+                  ),
                 ),
               ),
             ),
           ),
           Container(
-            padding: EdgeInsets.only(bottom: 100.0),
+            padding: EdgeInsets.only(bottom: 110.0),
             child: Text(
-              this.message,
+              "${this.message}",
               style: TextStyle(
-                fontSize: 30.0,
+                fontSize: 28.0,
                 fontWeight: FontWeight.bold,
+                color: val(),
               ),
             ),
           ),
-          MaterialButton(
-            padding: EdgeInsets.all(20.0),
-            minWidth: 200,
-            height: 50,
-            color: Colors.purple,
-            elevation: 25.0,
-            textColor: Colors.white,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(40.0),
-            ),
-            child: Text("Reset Game",
-                style: TextStyle(
-                  fontSize: 17.0,
-                )),
-            onPressed: () {
-              resetGame();
-            },
-            splashColor: Colors.transparent,
-            highlightColor: Colors.purpleAccent,
-          ),
-          Padding(padding: EdgeInsets.all(40.0)),
           Container(
-            child: reset(),
+            width: 200.0,
+            height: 50.0,
+            child: MaterialButton(
+              onPressed: () {
+                resetGame();
+              },
+              color: Colors.teal,
+              child: Text(
+                "Reset Game",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18.0,
+                ),
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(40.0),
+              ),
+              elevation: 10.0,
+              splashColor: Colors.transparent,
+              highlightColor: Colors.teal[800],
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.only(top: 50.0),
           )
         ],
       ),
