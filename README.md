@@ -6,4 +6,4 @@ These are all the projects that I developed during my journey through Flutter Ap
 
   ### Resources :- 
   -> (For docs) https://flutter.dev/docs
-  -> (For packages) https://pub.dev/
+    -> (For packages) https://pub.dev/
