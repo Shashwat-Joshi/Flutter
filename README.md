@@ -5,4 +5,4 @@ These are all the projects that I developed during my journey through Flutter Ap
 ### Flutter is awesome, highly recommended !!
 
   ### Resources :- 
-  -> (For docs) https://flutter.dev/docs  -> (For packages) https://pub.dev/
+  -> (For docs) https://flutter.dev/docs <br /> -> (For packages) https://pub.dev/
